@@ -1,8 +1,3 @@
-use askama::Template;
-use axum::{
-    http::StatusCode,
-    response::{Html, IntoResponse},
-};
 use futures::{Stream, StreamExt};
 use tokio::signal;
 
@@ -55,23 +50,5 @@ pub async fn shutdown_signal() {
     tokio::select! {
         _ = ctrl_c => {},
         _ = terminate => {},
-    }
-}
-
-pub struct HtmlTemplate<T>(pub T);
-
-impl<T> IntoResponse for HtmlTemplate<T>
-where
-    T: Template,
-{
-    fn into_response(self) -> axum::response::Response {
-        match self.0.render() {
-            Ok(html) => Html(html).into_response(),
-            Err(err) => (
-                StatusCode::INTERNAL_SERVER_ERROR,
-                format!("Failed to render template. Error: {err}"),
-            )
-                .into_response(),
-        }
     }
 }

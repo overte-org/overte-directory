@@ -39,20 +39,22 @@ async fn guess_content_type(request: Request<Body>, next: Next) -> Response<Body
 
     let mut response = next.run(request).await;
 
-    let content_type = {
-        let guessed = mime_guess::from_path(path).first_raw();
-        match (guessed, extension.as_deref()) {
-            (Some(mime), _) => mime,
-            (None, Some(ext)) => {
-                tracing::warn!(%path, %ext, "Unknown MIME type; defaulting to application/octet-stream");
-                "application/octet-stream"
+    if response.status().is_success() {
+        let content_type = {
+            let guessed = mime_guess::from_path(path).first_raw();
+            match (guessed, extension.as_deref()) {
+                (Some(mime), _) => mime,
+                (None, Some(ext)) => {
+                    tracing::warn!(%path, %ext, "Unknown MIME type; defaulting to application/octet-stream");
+                    "application/octet-stream"
+                }
+                (None, None) => "unknown",
             }
-            (None, None) => "unknown",
-        }
-    };
+        };
 
-    if let Ok(content_type) = content_type.parse() {
-        response.headers_mut().insert("Content-Type", content_type);
+        if let Ok(content_type) = content_type.parse() {
+            response.headers_mut().insert("Content-Type", content_type);
+        }
     }
 
     response
@@ -62,12 +64,12 @@ async fn guess_content_type(request: Request<Body>, next: Next) -> Response<Body
 mod get {
     use super::*;
 
-    pub async fn assets(Path(path): Path<String>) -> impl IntoRespone {
+    pub async fn assets(Path(path): Path<String>) -> impl IntoResponse {
         let path = path.trim_start_matches('/');
 
         match ASSETS.get_file(path) {
             None => (StatusCode::NOT_FOUND, "404 Not Found").into_response(),
-            Some(file) => file.contents(),
+            Some(file) => file.contents().into_response(),
         }
     }
 }

@@ -1,4 +1,4 @@
-use crate::{utils::HtmlTemplate, web::app::AppState};
+use crate::{web::app::AppState, web::utils::HtmlTemplate};
 use askama::Template;
 use axum::{
     Form, Router,

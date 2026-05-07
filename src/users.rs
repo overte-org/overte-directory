@@ -20,6 +20,7 @@ impl std::fmt::Debug for User {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.debug_struct("User")
             .field("id", &self.id)
+            .field("uuid", &self.uuid)
             .field("username", &self.username)
             .field("display_name", &self.display_name)
             .field("password_hash", &"[redacted]")

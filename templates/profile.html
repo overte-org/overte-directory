@@ -6,5 +6,10 @@ Profile Page :3
 
 {% block content %}
 <h1>Profile Page</h1>
-<div></div>
+<div>
+<p>UUID: {{ user_data.uuid }}</p>
+<p>Username: {{ user_data.username }}</p>
+<p>Display Name: {% if let Some(display_name) = user_data.display_name %}{{ display_name }}{% else %}None{% endif %}</p>
+<p>Signed up: {{ user_data.created_time }}</p>
+</div>
 {% endblock %}
