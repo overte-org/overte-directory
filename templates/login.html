@@ -1,8 +1,26 @@
 {% extends "_base.html" %}
 
 {% block title %}
+Login page :3
 {% endblock %}
 
 {% block content %}
 <h1>Login Page</h1>
+<form method="post">
+  <fieldset>
+    <legend>User login</legend>
+    {% if let Some(next) = next %}
+    <input type="hidden" name="next" value="{{next}}" />
+    {% endif %}
+    <div>
+      <label for="username" style="width:100%;"">Username</label>
+      <input name="username" id="username" />
+    </div>
+    <div>
+      <label for="password">Password</label>
+      <input name="password" id="password" type="password" />
+    </div>
+    <input type="submit" value="login" />
+  </fieldset>
+</form>
 {% endblock %}

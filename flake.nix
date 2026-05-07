@@ -25,7 +25,7 @@
         ];
 
         perSystem =
-          { pkgs, ... }:
+          { pkgs, lib, ... }:
           {
             packages = {
               /*
@@ -62,11 +62,16 @@
                   }
                 ];
               };
-              env.DATABASE_URL = "postgres://app:app@127.0.0.1/app";
+              # http://127.0.0.1:8080/?pgsql=%2Frun%2Fuser%2F1000%2Fdevenv-613fd34%2Fpostgres
+              services.adminer.enable = true;
               languages.rust = {
                 enable = true;
                 toolchainFile = ./rust-toolchain.toml;
               };
+
+              enterShell = ''
+                export DATABASE_URL="postgresql://app:app@$(${lib.getExe pkgs.python311} -c "import urllib.parse, sys; print(urllib.parse.quote(sys.argv[1], safe='''))" "$PGHOST")/app"
+              '';
             };
           };
       }

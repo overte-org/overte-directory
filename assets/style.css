@@ -1,0 +1,32 @@
+
+
+body.theme-light {
+  --ov-background-color: white;
+  --ov-color: black;
+}
+
+body:not([class^="theme-"]) {
+  --ov-background-color: #121212;
+  --ov-color: white;
+  --ov-button-bg-color: #9c27b0;
+  --ov-button-bg-color-hover: #b747cd;
+  --ov-button-color: white;
+}
+
+body {
+  background-color: var(--ov-background-color);
+  color: var(--ov-color);
+}
+
+a.ov-btn, button.ov-button, input[type="submit"] {
+  border-radius: 3px;
+  border: 0;
+  background-color: var(--ov-button-bg-color);
+  color: var(--ov-button-color);
+  padding: 0.5em 0.8em;
+}
+
+a.ov-btn:hover, button.ov-button:hover, input[type="submit"]:hover {
+  background-color: var(--ov-button-bg-color-hover);
+  cursor: pointer;
+}
