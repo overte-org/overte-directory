@@ -51,7 +51,10 @@
               programs.nixfmt.enable = true;
             };
             devenv.shells.default = {
-              packages = [ pkgs.sqlx-cli ];
+              packages = [
+                pkgs.sqlx-cli
+                pkgs.pnpm
+              ];
               services.postgres = {
                 enable = true;
                 initialDatabases = [

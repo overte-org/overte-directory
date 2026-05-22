@@ -16,7 +16,7 @@ use tower_http::services::ServeDir;
 use crate::web::app::AppState;
 
 #[cfg(not(debug_assertions))]
-const ASSETS: Dir = include_dir!("assets");
+const ASSETS: Dir = include_dir!("$OUT_DIR/dist/");
 
 pub fn router() -> Router<AppState> {
     let router = Router::new();
@@ -25,7 +25,7 @@ pub fn router() -> Router<AppState> {
     let router = router.nest_service("/assets", ServeDir::new("assets"));
 
     #[cfg(not(debug_assertions))]
-    let router = router.route("/assets", get(self::get::assets));
+    let router = router.route("/assets/{*path}", get(self::get::assets));
 
     router.layer(from_fn(guess_content_type))
 }

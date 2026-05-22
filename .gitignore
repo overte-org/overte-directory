@@ -22,3 +22,5 @@ target
 
 # Devenv
 /.devenv
+/assets/external
+/node_modules
