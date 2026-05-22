@@ -1,8 +1,11 @@
+CREATE TYPE user_role AS ENUM('user', 'admin');
+
 CREATE TABLE IF NOT EXISTS users (
   id BIGSERIAL PRIMARY KEY NOT NULL,
   uuid UUID NOT NULL UNIQUE DEFAULT gen_random_uuid(),
   username VARCHAR(20) NOT NULL UNIQUE,
   password_hash TEXT NOT NULL,
   display_name TEXT NULL DEFAULT NULL,
+  role user_role NOT NULL DEFAULT 'user',
   created_time TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
