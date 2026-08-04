@@ -1,5 +1,7 @@
 {
 	"dependencies": {
+		"@fontsource-variable/roboto": "^5.3.0",
+		"@fontsource/material-icons": "5.3.0",
 		"htmx.org": "4.0.0-beta3"
 	}
 }

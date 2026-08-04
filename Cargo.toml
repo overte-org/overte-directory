@@ -32,3 +32,6 @@ tower-sessions-sqlx-store = { version = "0.15.0", features = ["postgres"] }
 tracing = "0.1.44"
 tracing-subscriber = { version = "0.3.23", features = ["env-filter"] }
 uuid = "1.23.1"
+
+[build-dependencies]
+fs-utils = "1.1.0"

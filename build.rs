@@ -13,7 +13,22 @@ fn main() {
         .unwrap_or_else(|_| env::var("CARGO_MANIFEST_DIR").unwrap() + "/node_modules");
     println!("cargo:rerun-if-changed={}", node_modules_path);
 
-    let node_mules_files_to_copy = ["htmx.org/dist/htmx.min.js"];
+    let node_mules_files_to_copy = [
+        "htmx.org/dist/htmx.min.js",
+        "@fontsource/material-icons/",
+        "@fontsource-variable/roboto",
+    ];
+
+    let copy = |s: &Path, d: &Path| {
+        d.parent().iter().for_each(|dst_dir| {
+            fs::create_dir_all(dst_dir).expect("create target directory");
+        });
+        if s.is_dir() {
+            ::fs_utils::copy::copy_directory(s, d).expect("copy directory");
+        } else {
+            fs::copy(s, d).expect("copy file");
+        }
+    };
 
     if debug {
         for file in node_mules_files_to_copy {
@@ -22,10 +37,7 @@ fn main() {
             let dst_path_str = "assets/external/".to_string() + file;
             let dst_path = Path::new(&dst_path_str);
 
-            dst_path.parent().iter().for_each(|dst_dir| {
-                fs::create_dir_all(dst_dir).expect("create target directory");
-            });
-            fs::copy(src_path, dst_path).expect("copy file");
+            copy(src_path, dst_path);
         }
     } else {
         let out_dir = env::var("OUT_DIR").unwrap();
@@ -35,10 +47,7 @@ fn main() {
             let dst_path_str = out_dir.clone() + "/dist/external/" + file;
             let dst_path = Path::new(&dst_path_str);
 
-            dst_path.parent().iter().for_each(|dst_dir| {
-                fs::create_dir_all(dst_dir).expect("create target directory");
-            });
-            fs::copy(src_path, dst_path).expect("copy file");
+            copy(src_path, dst_path);
         }
         println!("cargo:rerun-if-changed=assets");
         copy_recursively("assets", out_dir + "/dist/").expect("files to copy");

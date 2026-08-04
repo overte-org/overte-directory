@@ -1,4 +1,14 @@
+* {
+  --ov-font-family: "Roboto Variable";
+  --ov-header-height: 100px;
+  --ov-header-margin-bottom: 15px;
+  --ov-line-features: var(--ov-line-features-size) var(--ov-line-features-style) var(--ov-line-features-color);
 
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--ov-font-family);
+}
 
 body.theme-light {
   --ov-background-color: white;
@@ -6,16 +16,28 @@ body.theme-light {
 }
 
 body:not([class^="theme-"]) {
-  --ov-background-color: #121212;
+  --ov-background-color: #403849;
   --ov-color: white;
-  --ov-button-bg-color: #9c27b0;
-  --ov-button-bg-color-hover: #b747cd;
+  --ov-button-bg-color: #403849;
+  --ov-button-bg-color-hover: #54495f;
   --ov-button-color: white;
+  --ov-line-features-size: 5px;
+  --ov-line-features-style: solid;
+  --ov-line-features-color: #201c25;
 }
 
 body {
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
   background-color: var(--ov-background-color);
   color: var(--ov-color);
+}
+
+.page-container {
+  min-height: 100vh;
+  display: flex;
+  padding-bottom: 0;
 }
 
 a.ov-btn, button.ov-button, input[type="submit"] {
@@ -29,4 +51,124 @@ a.ov-btn, button.ov-button, input[type="submit"] {
 a.ov-btn:hover, button.ov-button:hover, input[type="submit"]:hover {
   background-color: var(--ov-button-bg-color-hover);
   cursor: pointer;
+}
+
+a.ov-icon-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 50%;
+  border: var(--ov-line-features);
+  background-color: var(--ov-button-bg-color);
+  color: var(--ov-button-color);
+
+  height: 50px;
+  width: 50px;
+
+  font-size: 28px;
+}
+
+a.ov-icon-btn:hover {
+  background-color: var(--ov-button-bg-color-hover);
+  cursor: pointer;
+}
+
+.ov-icon {
+  font-family: "Material Icons";
+  margin-right: 4px; /* TODO: this should be made better with the html tag */
+}
+
+.sidebar {
+  max-width: max(200px, 20%);
+  padding: 15px;
+}
+
+.sidebar-header {
+  height: var(--ov-header-height);
+  margin-bottom: var(--ov-header-margin-bottom);
+}
+
+.sidebar-banner {
+  height: var(--ov-header-height);
+  width: 100%;
+}
+
+.sidebar-nav-item::before {
+  content: ' ';
+  display: block;
+  border: none;
+  border-top: var(--ov-line-features);
+  border-radius: 5px;
+}
+
+.sidebar-nav-item:last-of-type::after {
+  content: ' ';
+  display: block;
+  border: none;
+  border-top: var(--ov-line-features);
+  border-radius: 5px;
+}
+
+.sidebar-nav-item-content {
+	display: flex;
+	justify-content: start;
+	align-items: anchor-center;
+	gap: 12px;
+	padding: 5px 15px;
+}
+
+.content {
+  margin: 10px;
+  margin-top: 15px;
+  margin-bottom: 0;
+  padding: 10px;
+  padding-bottom: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  height: var(--ov-header-height);
+  margin-bottom: var(--ov-header-margin-bottom);
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  gap: 15px;
+}
+
+.pfp {
+  border: 1px solid black;
+}
+
+.main-content {
+  height: 100%;
+  border: var(--ov-line-features);
+  border-radius: 5px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom: 0;
+  padding: 10px;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
+
+.content-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.content-header-container {
+}
+
+.content-header-container::after {
+  content: ' ';
+  display: block;
+  border: none;
+  border-bottom: var(--ov-line-features);
+  border-radius: 5px;
+  margin-top: 10px;
 }
