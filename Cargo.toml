@@ -1,0 +1,22 @@
+[package]
+name = "overte-metaverse"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+askama = "0.15.6"
+async-stream = "0.3.6"
+axum = "0.8.9"
+axum-htmx = "0.8.1"
+axum-login = "0.18.0"
+axum_session = "0.19.0"
+axum_session_sqlx = "0.8.0"
+displaydoc = "0.2.5"
+futures = "0.3.32"
+notify = "8.2.0"
+sqlx = { version = "0.8.6", features = ["postgres"] }
+thiserror = "2.0.18"
+tokio = { version = "1.52.1", features = ["rt-multi-thread", "signal"] }
+tower-livereload = "0.10.3"
+tracing = "0.1.44"
+tracing-subscriber = { version = "0.3.23", features = ["env-filter"] }
