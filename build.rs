@@ -24,6 +24,7 @@ fn main() {
             fs::create_dir_all(dst_dir).expect("create target directory");
         });
         if s.is_dir() {
+            fs::remove_dir_all(d);
             ::fs_utils::copy::copy_directory(s, d).expect("copy directory");
         } else {
             fs::copy(s, d).expect("copy file");
