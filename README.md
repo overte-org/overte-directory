@@ -1,4 +1,6 @@
+# Overte Directory
 
+This is a WIP replacement for the overte-metavrese system, which will include functionality for federation, more advanced contact management and new features, i.e. calendars, groups, and more.
 
 ## ID schemas
 
