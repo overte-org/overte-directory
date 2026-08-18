@@ -1,6 +1,9 @@
 # Overte Directory
 
-This is a WIP replacement for the overte-metavrese system, which will include functionality for federation, more advanced contact management and new features, i.e. calendars, groups, and more.
+> [!IMPORTANT]
+> This is still a WIP project. Do not run this in an prodection environment.
+
+This is the fourth generation directory server for the overte system, which will include functionality for federation, more advanced contact management and new features, i.e. calendars, groups, and more.
 
 ## Building
 
@@ -28,10 +31,3 @@ Try keeping changes self-contained and write an overview of your change in your 
 ### LLM-Generated contributions
 
 Contributions, issues and code reviews generated using Large Language Models are not accepted.
-
-## ID schemas
-
-username: `@<username>:<directory>`
-canonical user id: `~<uuid>:<directory>`
-worlds: `#<worldslug>:<directory>`
-canonical world id: `!<uuid>:<directory>`
