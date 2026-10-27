@@ -3,7 +3,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs?ref=nixos-unstable";
     flake-parts.url = "github:hercules-ci/flake-parts";
     wrappers = {
-      url = "git+file:///home/trr/dev/RTUnreal/wrappers";
+      url = "github:lassulus/wrappers";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     rust-overlay.url = "github:oxalica/rust-overlay";

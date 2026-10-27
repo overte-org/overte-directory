@@ -119,17 +119,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1792356557,
-        "narHash": "sha256-GTMhkAlEalpXquoZsmgAVmJ4IqGmIPDZFCuG3cKHRF0=",
-        "ref": "refs/heads/devenv",
-        "rev": "e6f551364ba590f44469dabbb49bcadfeb2621aa",
-        "revCount": 299,
-        "type": "git",
-        "url": "file:///home/trr/dev/RTUnreal/wrappers"
+        "lastModified": 1792487907,
+        "narHash": "sha256-X/+r5QLrzFmlO4Kx4WKEu2Ol/Xr6XWSjyIMd//Sl0Mo=",
+        "owner": "lassulus",
+        "repo": "wrappers",
+        "rev": "37d05efcab820ef96f083b251040ae2848445959",
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "file:///home/trr/dev/RTUnreal/wrappers"
+        "owner": "lassulus",
+        "repo": "wrappers",
+        "type": "github"
       }
     }
   },
