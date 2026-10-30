@@ -141,6 +141,11 @@
                   };
                 };
               }).wrapper;
+
+            rustPlatform = pkgs.makeRustPlatform {
+              cargo = self'.packages.rust-overte;
+              rustc = self'.packages.rust-overte;
+            };
           in
           {
             _module.args.pkgs = import inputs.nixpkgs {
@@ -155,23 +160,42 @@
               config = { };
             };
             packages = {
-              /*
-                overte-metaverse = pkgs.callPackage ./nix/overte.nix {
-                  inherit (self'.packages)
-                    glad
-                    scribe
-                    gif_creator
-                    artery-font-format
-                    cgltf
-                    etc2comp
-                    draco
-                    glm
-                    ;
-                  libv8 = pkgs.nodejs_22.libv8;
-                };
-                default = self'.packages.overte-metaverse;
-              */
+              overte-directory =
+                pkgs.callPackage
+                  (
+                    {
+                      version,
+                      rustPlatform,
+                      pnpm,
+                      pnpmConfigHook,
+                      fetchPnpmDeps,
+                    }:
+                    rustPlatform.buildRustPackage (finalAttrs: {
+                      pname = "overte-directory";
+                      inherit version;
+                      nativeBuildInputs = [
+                        pnpm
+                        pnpmConfigHook
+                      ];
+
+                      src = ./.;
+                      cargoLock = {
+                        lockFile = ./Cargo.lock;
+                      };
+                      pnpmDeps = fetchPnpmDeps {
+                        inherit (finalAttrs) pname version src;
+                        fetcherVersion = 4;
+                        hash = "sha256-Bgz0kprmiv05201qcu/q/TrCcKGaGUAqWh/MyCicAJE=";
+                      };
+                    })
+                  )
+                  {
+                    version = inputs.self.shortRev or "dirty";
+                    inherit rustPlatform;
+                  };
+              default = self'.packages.overte-directory;
               inherit pcWrapped;
+              inherit (pkgs) rust-overte;
             };
             treefmt = {
               programs.sql-formatter.enable = true;
@@ -181,10 +205,9 @@
             devShells.default = pkgs.mkShell {
               packages = [
                 pcWrapped
-                pkgs.rust-overte
                 pkgs.sqlx-cli
-                pkgs.pnpm
               ];
+              inputsFrom = [ self'.packages.overte-directory ];
 
               shellHook = ''
                 export PGHOST="${devState}/postgres/socket"

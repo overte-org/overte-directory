@@ -21,6 +21,9 @@ target
 #.idea/
 
 # Devenv
-/.devenv
+/.devState
 /assets/external
 /node_modules
+
+# Nix stuff
+result*

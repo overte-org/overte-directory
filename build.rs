@@ -24,7 +24,8 @@ fn main() {
             fs::create_dir_all(dst_dir).expect("create target directory");
         });
         if s.is_dir() {
-            fs::remove_dir_all(d);
+            // Try removal
+            let _ = fs::remove_dir_all(d);
             ::fs_utils::copy::copy_directory(s, d).expect("copy directory");
         } else {
             fs::copy(s, d).expect("copy file");
@@ -61,8 +62,8 @@ pub fn copy_recursively(source: impl AsRef<Path>, destination: impl AsRef<Path>)
         let entry = entry?;
         let filetype = entry.file_type()?;
         if filetype.is_dir() {
-            fs::create_dir_all(&entry.path())?;
-            copy_recursively(entry.path(), destination.as_ref().join(entry.file_name()))?;
+            fs::create_dir_all(destination.as_ref().join(entry.file_name()))?;
+            copy_recursively(entry.path(), destination.as_ref())?;
         } else {
             fs::copy(entry.path(), destination.as_ref().join(entry.file_name())).map_err(|e| {
                 eprintln!("{entry:?}");
